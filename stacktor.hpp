@@ -25,8 +25,6 @@ private:
     int lock = 0;
 
     void bahaha() {
-        int data_size = sizeof(T);
-
         asm (
             "movq %%rsp, %0;"
                 : "=r" (data)
@@ -34,18 +32,15 @@ private:
                 :
         );
 
-        goto pass;
+        while (not lock);
 
-        start:
-            asm volatile (
-                "sub %%rsp, %0;"
-                    :
-                    : "" (data_size)
-            );
-            DEBUG_PRINT("Element allocated.");
-            --lock;
+        this->god_have_mercy();
+    }
 
-        pass:
+    void god_have_mercy() {
+        T prayers;
+        --lock;
+
         DEBUG_PRINT("Locking.");
         while (not lock) {
             if (request != -1) {
@@ -62,7 +57,7 @@ private:
                 return;
             }
         }
-        goto start;
+        this->god_have_mercy();
     }
 
 public:

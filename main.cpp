@@ -21,14 +21,12 @@ signed main() {
     // It MUST be on the heap
     stacktor<int> * s = new stacktor<int>();
 
-    puts("");
     s->push_back(10);
-    puts("");
     s->push_back(12);
-    puts("");
     s->push_back(6);
-    puts("");
+
     print_stractor(*s);
+    puts("");
 
     return 0;
 }
